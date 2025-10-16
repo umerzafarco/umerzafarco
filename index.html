@@ -1,821 +1,1382 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Umer Zafar — Freelance WordPress Developer</title>
-    <link rel="icon" type="image/png" href="./favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: { sans: ["Outfit", "ui-sans-serif", "system-ui"] },
-            colors: {
-              ink: { 900: "#0b0d0f", 800: "#101317", 700: "#131720" },
-              neon: { green: "#00ff95" },
-            },
-            boxShadow: {
-              glow: "0 0 0 1px rgba(0,255,149,0.25), 0 10px 30px rgba(0,0,0,0.45)",
-            },
-            dropShadow: { neon: "0 0 14px rgba(0,255,149,0.45)" },
-            backgroundImage: {
-              mesh: "radial-gradient(60% 60% at 20% 10%, rgba(0,255,149,0.12) 0%, transparent 60%), radial-gradient(50% 50% at 80% 30%, rgba(255,255,255,0.06) 0%, transparent 60%)",
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Umer Zafar — Freelance WordPress Developer</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Outfit", "ui-sans-serif", "system-ui"] },
+          colors: {
+            ink: { 900: "#0b0d0f", 800: "#101317", 700: "#131720" },
+            neon: { green: "#00ff95" },
+          },
+          boxShadow: {
+            glow: "0 0 0 1px rgba(0,255,149,0.25), 0 10px 30px rgba(0,0,0,0.45)",
+          },
+          dropShadow: { neon: "0 0 14px rgba(0,255,149,0.45)" },
+          backgroundImage: {
+            mesh: "radial-gradient(60% 60% at 20% 10%, rgba(0,255,149,0.12) 0%, transparent 60%), radial-gradient(50% 50% at 80% 30%, rgba(255,255,255,0.06) 0%, transparent 60%)",
           },
         },
-      };
-    </script>
-    <style>
-      html { scroll-behavior: smooth; }
-      .underline-hover { position: relative; }
-      .underline-hover::after {
-        content: "";
-        position: absolute;
-        left: 0; bottom: -3px; height: 2px; width: 0;
-        background: linear-gradient(90deg, rgba(0,255,149,0.9), rgba(255,255,255,0.9));
-        transition: width 220ms ease;
+      },
+    };
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .underline-hover {
+      position: relative;
+    }
+
+    .underline-hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, rgba(0, 255, 149, 0.9), rgba(255, 255, 255, 0.9));
+      transition: width 220ms ease;
+    }
+
+    .underline-hover:hover::after {
+      width: 100%;
+    }
+
+    /* Sticky fade-in */
+    .nav-bg {
+      transition: background-color 250ms ease, box-shadow 250ms ease;
+    }
+
+    .nav-bg.scrolled {
+      background-color: rgba(16, 19, 23, 0.65);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    /* Mobile drawer */
+    .drawer {
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .drawer.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Gradient animated hero bg */
+    @keyframes floatGrad {
+      0% {
+        background-position: 0% 50%
       }
-      .underline-hover:hover::after { width: 100%; }
 
-      /* Sticky fade-in */
-      .nav-bg { transition: background-color 250ms ease, box-shadow 250ms ease; }
-      .nav-bg.scrolled { background-color: rgba(16,19,23,0.65); backdrop-filter: blur(10px); box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
+      50% {
+        background-position: 100% 50%
+      }
 
-      /* Mobile drawer */
-      .drawer { transform: translateY(-10px); opacity: 0; pointer-events: none; transition: transform 220ms ease, opacity 220ms ease; }
-      .drawer.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      100% {
+        background-position: 0% 50%
+      }
+    }
 
-      /* Gradient animated hero bg */
-      @keyframes floatGrad { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-      .animated-gradient { background: linear-gradient(120deg, rgba(0,255,149,0.12), rgba(255,255,255,0.06), rgba(0,255,149,0.10)); background-size: 200% 200%; animation: floatGrad 14s ease infinite; }
-      /* Enhanced hero effects */
-      .typing { border-right: 2px solid rgba(255,255,255,0.8); white-space: nowrap; overflow: hidden; }
-      @keyframes floaty { 0% { transform: translateY(0);} 50% { transform: translateY(-10px);} 100% { transform: translateY(0);} }
-      .floaty { animation: floaty 7s ease-in-out infinite; }
-      @keyframes slowSpin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
-      .tech-float { position: absolute; opacity: .55; filter: drop-shadow(0 0 10px rgba(0,255,149,.25)); }
-      .spin { animation: slowSpin 26s linear infinite; }
-      .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
-      .reveal.show { opacity: 1; transform: translateY(0); }
-      @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(6px);} }
-      .scroll-indicator { animation: bob 1.6s ease-in-out infinite; }
-      /* Button click slide animation */
-      @keyframes clickSlide { 0% { transform: translateX(0);} 50% { transform: translateX(6px);} 100% { transform: translateX(0);} }
-      .click-slide { animation: clickSlide 380ms ease; }
+    .animated-gradient {
+      background: linear-gradient(120deg, rgba(0, 255, 149, 0.12), rgba(255, 255, 255, 0.06), rgba(0, 255, 149, 0.10));
+      background-size: 200% 200%;
+      animation: floatGrad 14s ease infinite;
+    }
 
-      /* CTA button animations */
-      @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(0,255,149,0.5);} 70% { box-shadow: 0 0 0 12px rgba(0,255,149,0);} 100% { box-shadow: 0 0 0 0 rgba(0,255,149,0);} }
-      .btn-pulse { animation: pulseGlow 2.2s ease-out infinite; }
-      .btn-shine { position: relative; overflow: hidden; }
-      .btn-shine::before { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent); transform: translateX(-100%); }
-      .btn-shine:hover::before { transform: translateX(100%); transition: transform 800ms ease; }
+    /* Enhanced hero effects */
+    .typing {
+      border-right: 2px solid rgba(255, 255, 255, 0.8);
+      white-space: nowrap;
+      overflow: hidden;
+    }
 
-      /* Light theme overrides */
-      body.light { background-color: #f7f7f9; color: #0b0d0f; }
-      body.light .nav-bg.scrolled { background-color: rgba(255,255,255,0.7); box-shadow: 0 1px 0 rgba(0,0,0,0.08); }
-      body.light .selection\:bg-neon-green\/30::selection { background-color: rgba(0,255,149,0.3); }
-      /* text overrides */
-      body.light .text-white { color: #0b0d0f !important; }
-      body.light .text-white\/80 { color: rgba(11,13,15,0.8) !important; }
-      body.light .text-white\/70 { color: rgba(11,13,15,0.7) !important; }
-      body.light .text-white\/60 { color: rgba(11,13,15,0.6) !important; }
-      /* surface/background overrides */
-      body.light .bg-ink-800\/40 { background-color: rgba(255,255,255,0.6) !important; }
-      body.light .bg-white\/5 { background-color: rgba(0,0,0,0.05) !important; }
-      body.light .hover\:bg-white\/10:hover { background-color: rgba(0,0,0,0.06) !important; }
-      /* rings and borders */
-      body.light * { --tw-ring-color: rgba(0,0,0,0.12); }
-      body.light .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
-      body.light .ring-white\/10 { --tw-ring-color: rgba(0,0,0,0.1) !important; }
-      body.light .ring-white\/30 { --tw-ring-color: rgba(0,0,0,0.3) !important; }
-      body.light .ring-white\/40 { --tw-ring-color: rgba(0,0,0,0.4) !important; }
-      body.light .ring-white\/70 { --tw-ring-color: rgba(0,0,0,0.7) !important; }
-      /* buttons */
-      body.light a[href^="#"].ring-white\/70:hover { color: #000 !important; background-color: #fff !important; }
-      .contact-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  transition: all 0.4s ease;
-  gap: 0; /* Remove space between letters */
-}
+    @keyframes floaty {
+      0% {
+        transform: translateY(0);
+      }
 
-.contact-btn span {
-  display: inline-block;
-  position: relative;
-  transition: transform 0.4s ease;
-  margin: 0;
-  padding: 0;
-}
+      50% {
+        transform: translateY(-10px);
+      }
 
-/* Hover animation */
-.contact-btn:hover span {
-  animation: slideRight 0.6s ease forwards;
-}
+      100% {
+        transform: translateY(0);
+      }
+    }
 
-@keyframes slideRight {
-  0% {
-    transform: translateX(-10px);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
+    .floaty {
+      animation: floaty 7s ease-in-out infinite;
+    }
 
-/* Sequential delay for each letter */
-.contact-btn:hover span:nth-child(1) { animation-delay: 0s; }
-.contact-btn:hover span:nth-child(2) { animation-delay: 0.05s; }
-.contact-btn:hover span:nth-child(3) { animation-delay: 0.1s; }
-.contact-btn:hover span:nth-child(4) { animation-delay: 0.15s; }
-.contact-btn:hover span:nth-child(5) { animation-delay: 0.2s; }
-.contact-btn:hover span:nth-child(6) { animation-delay: 0.25s; }
-.contact-btn:hover span:nth-child(7) { animation-delay: 0.3s; }
-.contact-btn:hover span:nth-child(8) { animation-delay: 0.35s; }
-.contact-btn:hover span:nth-child(9) { animation-delay: 0.4s; }
-.contact-btn:hover span:nth-child(10) { animation-delay: 0.45s; }
+    @keyframes slowSpin {
+      from {
+        transform: rotate(0deg);
+      }
 
-/* here is the sections css */
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
+    .tech-float {
+      position: absolute;
+      opacity: .55;
+      filter: drop-shadow(0 0 10px rgba(0, 255, 149, .25));
+    }
 
+    .spin {
+      animation: slowSpin 26s linear infinite;
+    }
 
-    </style>
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-  </head>
-  <body class="bg-ink-900 text-white selection:bg-neon-green/30">
-    <!-- NAVBAR -->
-    <header class="nav-bg fixed top-0 inset-x-0 z-40">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="flex h-16 items-center justify-between">
-            <a href="#" class="block">
-              <img src="/umer-zafar-logo-1.png" alt="Logo" class="h-10 w-auto sm:h-12 md:h-14 lg:h-16 object-contain">
-            </a>
-      
-            <nav class="hidden md:flex items-center gap-6 text-sm">
-              <a class="underline-hover" href="#home">Home</a>
-              <a class="underline-hover" href="#services">Services</a>
-              <a class="underline-hover" href="#tech">Technologies</a>
-              <a class="underline-hover" href="#cta-hire">Hire Me</a>
-              <a class="underline-hover" href="#clients">Clients</a>
-              <a class="underline-hover" href="#industries">Industries</a>
-              <a class="underline-hover" href="#contact">Contact</a>
-            </nav>
-      
-            <div class="flex items-center gap-2 md:gap-4">
-              <button id="theme-toggle" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 text-xs">
-                <iconify-icon id="theme-icon" icon="tabler:sun" width="16" height="16"></iconify-icon>
-                <span id="theme-label">Light</span>
-              </button>
-      
-              <button id="menu-btn" class="md:hidden p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-                <iconify-icon id="icon-menu" icon="tabler:menu-2" width="20" height="20"></iconify-icon>
-                <iconify-icon id="icon-close" icon="tabler:x" width="20" height="20" class="hidden"></iconify-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      
-        <!-- Drawer -->
-        <div id="mobile-drawer" class="drawer md:hidden border-t border-white/10 bg-ink-800 hidden transition-all duration-300 transform">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-            <nav class="grid gap-2 text-sm">
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#home">Home</a>
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#services">Services</a>
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#tech">Technologies</a>
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#cta-hire">Hire Me</a>
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#clients">Clients</a>
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#industries">Industries</a>
-              <a class="px-3 py-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10" href="#contact">Contact</a>
-            </nav>
-          </div>
-        </div>
-      </header>
-      
-    <main id="home" class="pt-16">
-      <!-- HERO -->
-      <section class="relative overflow-hidden">
-        <div class="absolute inset-0 animated-gradient"></div>
-        <!-- floating tech icons -->
-        <iconify-icon icon="vscode-icons:file-type-html" class="tech-float spin hidden sm:block" style="top:10%; left:6%;" width="28" height="28"></iconify-icon>
-        <iconify-icon icon="vscode-icons:file-type-css" class="tech-float spin hidden sm:block" style="top:18%; right:10%; animation-duration: 32s;" width="28" height="28"></iconify-icon>
-        <iconify-icon icon="logos:javascript" class="tech-float spin hidden lg:block" style="bottom:18%; left:12%; animation-duration: 28s;" width="26" height="26"></iconify-icon>
-        <iconify-icon icon="logos:wordpress" class="tech-float spin hidden md:block" style="bottom:12%; right:16%; animation-duration: 36s;" width="32" height="32"></iconify-icon>
-        <iconify-icon icon="logos:elementor" class="tech-float spin hidden md:block" style="top:46%; left:48%; animation-duration: 30s;" width="24" height="24"></iconify-icon>
-        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-24">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <!-- Left: Profile image in clean circular frame, centered -->
-            <div class="order-1">
-              <div class="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 floaty">
-                <div class="absolute -inset-3 rounded-full blur-2xl opacity-40" style="background: radial-gradient(closest-side, rgba(255,255,255,0.08), transparent), radial-gradient(closest-side, rgba(255,255,255,0.08), transparent), radial-gradient(closest-side, rgba(255,255,255,0.08), transparent)"></div>
-                <div class="absolute inset-0 rounded-full bg-white/5 ring-1 ring-inset ring-white/10"></div>
-                <img src="./UMER_ME.png" alt="Umer Zafar portrait" class="relative z-10 w-full h-full object-cover rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.45)]" />
-                <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-48 sm:w-60 h-6 sm:h-7 rounded-full bg-black/60 blur-xl"></div>
-              </div>
-            </div>
-            <!-- Right: Text content -->
-            <div class="order-2 text-center lg:text-left reveal">
-              <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs tracking-wide text-white/80">
-                <span>👋 Hi, I’m Umer Zafar</span>
-              </div>
-              <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
-                Freelance WordPress Developer & Front-End Expert
-              </h1>
-              <p id="typing" class="mt-2 text-white/80 typing"></p>
-              <p class="mt-3 text-white/70 max-w-2xl mx-auto lg:mx-0">
-                I design and develop modern, high-performing, SEO-optimized WordPress websites using Elementor, Divi, and custom code — blending creativity with clean code.
-              </p>
-              <p class="mt-2 text-white/60">Transforming ideas into fully functional digital experiences.</p>
-              <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs tracking-wide text-white/80">
-                <iconify-icon icon="tabler:award" width="16" height="16" class="text-neon-green"></iconify-icon>
-                <span>13+ Years Experience</span>
-              </div>
-              <div class="mt-6 flex flex-col sm:flex-row sm:justify-start gap-3 sm:gap-4">
-                <a href="#contact" class="inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-md bg-transparent text-white font-semibold ring-1 ring-white/70 hover:bg-white hover:text-black transition">
-                  Hire Me
-                </a>
-                <a href="#clients" class="inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-md bg-transparent text-white font-semibold ring-1 ring-white/30 hover:bg-white/10 transition">
-                  View Portfolio
-                </a>
-              </div>
-              <div class="mt-5 flex justify-center lg:justify-start items-center gap-3 text-white/80">
-                <a href="http://www.linkedin.com/in/lms-membership-and-learning-community-development-expert"  target="_blank" aria-label="LinkedIn" class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon icon="mdi:linkedin" width="18" height="18"></iconify-icon></a>
-                <a href="https://web.facebook.com/umer.zafargillani/"  target="_blank" aria-label="Facebook" class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon icon="mdi:facebook" width="18" height="18"></iconify-icon></a>
-                <a href="https://wa.me/923001234567" target="_blank" aria-label="WhatsApp" class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition">
-                    <iconify-icon icon="mdi:whatsapp" width="18" height="18"></iconify-icon>
-                  </a>                
-              </div>
-            </div>
-          </div>
-          <!-- Scroll indicator -->
-          <div class="mt-10 flex justify-center">
-            <div class="scroll-indicator text-white/60 text-sm inline-flex items-center gap-2">
-              <span>↓ Scroll to Explore</span>
-            </div>
-          </div>
-        </div>
-      </section>
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
 
-      <!-- SERVICES 8 CARDS -->
-      <section id="services" class="py-14 sm:py-16 lg:py-20">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold">What Services Do I Provide?</h2>
-            <p class="mt-2 text-white/60 max-w-2xl mx-auto">End‑to‑end WordPress solutions focused on speed, SEO, and conversions.</p>
-          </div>
-          <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- 8 service cards, icon on top, then heading, then paragraph -->
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:device-desktop" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">WordPress Website Design</h3>
-              <p class="mt-2 text-sm text-white/70">Modern, responsive designs tailored to your brand and audience.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:brand-wordpress" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">Custom Theme Development</h3>
-              <p class="mt-2 text-sm text-white/70">Unique themes built for performance, scalability, and easy editing.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:lego" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">Plugin Customization</h3>
-              <p class="mt-2 text-sm text-white/70">Extend or tailor plugins to match your exact business needs.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:shopping-cart" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">E-commerce (WooCommerce) Setup</h3>
-              <p class="mt-2 text-sm text-white/70">High-converting stores with secure payments and great UX.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:rocket" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">Speed Optimization</h3>
-              <p class="mt-2 text-sm text-white/70">Core Web Vitals improvements for blazing-fast performance.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:seo" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">SEO Optimization</h3>
-              <p class="mt-2 text-sm text-white/70">Technical SEO setups with schema, sitemaps, and best practices.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:shield-check" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">Website Maintenance</h3>
-              <p class="mt-2 text-sm text-white/70">Updates, monitoring, backups, and security hardening.</p>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
-                <iconify-icon icon="tabler:bug" class="text-neon-green" width="22" height="22"></iconify-icon>
-              </span>
-              <h3 class="mt-4 text-xl font-semibold">Bug Fixing & Support</h3>
-              <p class="mt-2 text-sm text-white/70">Quick fixes and reliable support to keep you online.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-      <!-- TECHNOLOGIES -->
-      <section id="tech" class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold">Technologies & Tools</h2>
-            <p class="mt-2 text-white/60 max-w-2xl mx-auto">The stack I use to craft performant, scalable and editor‑friendly WordPress experiences.</p>
-            <div class="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-neon-green to-transparent"></div>
-          </div>
-          <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-            <!-- Item -->
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="HTML5">
-                <iconify-icon icon="simple-icons:html5" width="28" height="28" class="text-[#E34F26]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">HTML5</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="CSS3">
-                <iconify-icon icon="simple-icons:css3" width="28" height="28" class="text-[#1572B6]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">CSS3</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="JavaScript">
-                <iconify-icon icon="simple-icons:javascript" width="26" height="26" class="text-[#F7DF1E]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">JavaScript</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="WordPress">
-                <iconify-icon icon="simple-icons:wordpress" width="26" height="26" class="text-[#21759B]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">WordPress</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="PHP">
-                <iconify-icon icon="simple-icons:php" width="30" height="30" class="text-[#777BB4]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">PHP</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="jQuery">
-                <iconify-icon icon="simple-icons:jquery" width="28" height="28" class="text-[#0769AD]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">jQuery</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="Elementor">
-                <iconify-icon icon="simple-icons:elementor" width="26" height="26" class="text-[#92003B]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">Elementor</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl ring-1 ring-inset ring-white/15" aria-label="Divi" style="background: linear-gradient(135deg, #8B5CF6, #EC4899);">
-                <span class="text-white font-bold">D</span>
-              </span>
-              <div class="mt-3 font-semibold">Divi</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="Oxygen Builder">
-                <iconify-icon icon="tabler:tools" width="26" height="26" class="text-[#00B5AD]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">Oxygen Builder</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="WooCommerce">
-                <iconify-icon icon="simple-icons:woocommerce" width="28" height="28" class="text-[#96588A]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">WooCommerce</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl ring-1 ring-inset ring-white/15" aria-label="Advanced Custom Fields" style="background-color:#00D1AE;">
-                <span class="text-black font-bold">ACF</span>
-              </span>
-              <div class="mt-3 font-semibold">ACF</div>
-            </div>
-            <div class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
-              <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15" aria-label="Yoast SEO / AIOSEO">
-                <iconify-icon icon="simple-icons:yoast" width="26" height="26" class="text-[#A4286A]"></iconify-icon>
-              </span>
-              <div class="mt-3 font-semibold">Yoast / AIOSEO</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    @keyframes bob {
 
-      <!-- WHY HIRE -->
-      <section id="why-hire" class="py-14 sm:py-16 lg:py-20 relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent pointer-events-none"></div>
-        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
-            <span class="bg-gradient-to-r from-neon-green via-white to-neon-green bg-clip-text text-transparent">Why Hire Umer Zafar</span>
-          </h2>
-          <p class="mt-3 text-white/70 max-w-3xl mx-auto">I deliver SEO-friendly, conversion-focused, and fully responsive WordPress solutions with clean code, great performance, and long-term support.</p>
-          <div class="mx-auto mt-4 h-px w-28 bg-gradient-to-r from-transparent via-neon-green to-transparent"></div>
+      0%,
+      100% {
+        transform: translateY(0);
+      }
 
-          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left max-w-5xl mx-auto">
-            <div class="flex items-start gap-3">
-              <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>Reliable communication</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>SEO-friendly, optimized designs</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>100% responsive layouts</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>Affordable packages</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>Long-term support</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>Client satisfaction focus</span>
-            </div>
-          </div>
+      50% {
+        transform: translateY(6px);
+      }
+    }
 
-          <a href="#contact" class="contact-btn mt-10 inline-flex items-center px-7 py-3 rounded-md bg-neon-green text-black font-semibold shadow-glow transition">
-            <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>c</span><span>t</span>
-            <span>&nbsp;</span><span>U</span><span>s</span>
-          </a>
-        </div>
-      </section>
+    .scroll-indicator {
+      animation: bob 1.6s ease-in-out infinite;
+    }
 
+    /* Button click slide animation */
+    @keyframes clickSlide {
+      0% {
+        transform: translateX(0);
+      }
 
-     <section id="cta-hire" class="relative py-24 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0a0a0a] text-center">
-  <div class="max-w-5xl mx-auto px-6">
-    <h2 class="text-5xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-      Want to Hire a 
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff99] to-[#00e0ff]">
-        Professional WordPress Expert?
-      </span>
-    </h2>
+      50% {
+        transform: translateX(6px);
+      }
 
-    <p class="mt-5 text-gray-400 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
-      Let’s build something powerful, fast, and visually stunning — crafted to perform.
-    </p>
+      100% {
+        transform: translateX(0);
+      }
+    }
 
-    <div class="mt-10">
-      
-          <a href="#contact" class="contact-btn inline-flex items-center px-7 py-3 rounded-md bg-neon-green text-black font-semibold shadow-glow transition">
-            <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>c</span><span>t</span>
-            <span>&nbsp;</span><span>U</span><span>s</span>
-          </a>
+    .click-slide {
+      animation: clickSlide 380ms ease;
+    }
+
+    /* CTA button animations */
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 149, 0.5);
+      }
+
+      70% {
+        box-shadow: 0 0 0 12px rgba(0, 255, 149, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 149, 0);
+      }
+    }
+
+    .btn-pulse {
+      animation: pulseGlow 2.2s ease-out infinite;
+    }
+
+    .btn-shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-shine::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transform: translateX(-100%);
+    }
+
+    .btn-shine:hover::before {
+      transform: translateX(100%);
+      transition: transform 800ms ease;
+    }
+
+    /* Light theme overrides */
+    body.light {
+      background-color: #f7f7f9;
+      color: #0b0d0f;
+    }
+
+    body.light .nav-bg.scrolled {
+      background-color: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    body.light .selection\:bg-neon-green\/30::selection {
+      background-color: rgba(0, 255, 149, 0.3);
+    }
+
+    /* text overrides */
+    body.light .text-white {
+      color: #0b0d0f !important;
+    }
+
+    body.light .text-white\/80 {
+      color: rgba(11, 13, 15, 0.8) !important;
+    }
+
+    body.light .text-white\/70 {
+      color: rgba(11, 13, 15, 0.7) !important;
+    }
+
+    body.light .text-white\/60 {
+      color: rgba(11, 13, 15, 0.6) !important;
+    }
+
+    /* surface/background overrides */
+    body.light .bg-ink-800\/40 {
+      background-color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    body.light .bg-white\/5 {
+      background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+
+    body.light .hover\:bg-white\/10:hover {
+      background-color: rgba(0, 0, 0, 0.06) !important;
+    }
+
+    /* rings and borders */
+    body.light * {
+      --tw-ring-color: rgba(0, 0, 0, 0.12);
+    }
+
+    body.light .border-white\/10 {
+      border-color: rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light .ring-white\/10 {
+      --tw-ring-color: rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light .ring-white\/30 {
+      --tw-ring-color: rgba(0, 0, 0, 0.3) !important;
+    }
+
+    body.light .ring-white\/40 {
+      --tw-ring-color: rgba(0, 0, 0, 0.4) !important;
+    }
+
+    body.light .ring-white\/70 {
+      --tw-ring-color: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    /* buttons */
+    body.light a[href^="#"].ring-white\/70:hover {
+      color: #000 !important;
+      background-color: #fff !important;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.4s ease;
+      gap: 0;
+      /* Remove space between letters */
+    }
+
+    .contact-btn span {
+      display: inline-block;
+      position: relative;
+      transition: transform 0.4s ease;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Hover animation */
+    .contact-btn:hover span {
+      animation: slideRight 0.6s ease forwards;
+    }
+
+    @keyframes slideRight {
+      0% {
+        transform: translateX(-10px);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    /* Sequential delay for each letter */
+    .contact-btn:hover span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .contact-btn:hover span:nth-child(2) {
+      animation-delay: 0.05s;
+    }
+
+    .contact-btn:hover span:nth-child(3) {
+      animation-delay: 0.1s;
+    }
+
+    .contact-btn:hover span:nth-child(4) {
+      animation-delay: 0.15s;
+    }
+
+    .contact-btn:hover span:nth-child(5) {
+      animation-delay: 0.2s;
+    }
+
+    .contact-btn:hover span:nth-child(6) {
+      animation-delay: 0.25s;
+    }
+
+    .contact-btn:hover span:nth-child(7) {
+      animation-delay: 0.3s;
+    }
+
+    .contact-btn:hover span:nth-child(8) {
+      animation-delay: 0.35s;
+    }
+
+    .contact-btn:hover span:nth-child(9) {
+      animation-delay: 0.4s;
+    }
+
+    .contact-btn:hover span:nth-child(10) {
+      animation-delay: 0.45s;
+    }
+
+    /* here is the sections css */
+  </style>
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+</head>
+
+<body class="bg-ink-900 text-white selection:bg-neon-green/30">
+  <!-- NAVBAR -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-black text-white">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <a href="#" class="block">
+        <img src="/umer-zafar-logo-1.png" alt="Logo" class="h-10 w-auto sm:h-12 md:h-14 lg:h-16 object-contain">
+      </a>
+
+      <!-- Desktop Nav (hidden from 1024px and below) -->
+      <nav class="hidden lg:flex items-center gap-6 text-sm">
+        <a class="underline-hover" href="#home">Home</a>
+        <a class="underline-hover" href="#services">Services</a>
+        <a class="underline-hover" href="#tech">Technologies</a>
+        <a class="underline-hover" href="#cta-hire">Hire Me</a>
+        <a class="underline-hover" href="#clients">Clients</a>
+        <a class="underline-hover" href="#industries">Industries</a>
+        <a class="underline-hover" href="#contact">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2 md:gap-4">
+        <button id="theme-toggle"
+          class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 ring-1 ring-inset ring-white/10 text-xs">
+          <iconify-icon id="theme-icon" icon="tabler:sun" width="16" height="16"></iconify-icon>
+          <span id="theme-label">Light</span>
+        </button>
+
+        <!-- Hamburger button (visible below lg screens) -->
+        <button id="menu-btn" class="lg:hidden p-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10"
+          aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+          <iconify-icon id="icon-menu" icon="tabler:menu-2" width="20" height="20"></iconify-icon>
+          <iconify-icon id="icon-close" icon="tabler:x" width="20" height="20" class="hidden"></iconify-icon>
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-gradient-to-r from-transparent via-[#00ff99]/40 to-transparent mt-4"></div>
-  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-gradient-to-r from-transparent via-[#00e0ff]/40 to-transparent"></div>
-</section>
+  <!-- Drawer -->
+  <div id="mobile-drawer"
+    class="drawer hidden lg:hidden border-t border-white/10 bg-black transition-all duration-300 transform">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+      <nav class="grid gap-2 text-sm">
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#home">Home</a>
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#services">Services</a>
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#tech">Technologies</a>
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#cta-hire">Hire Me</a>
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#clients">Clients</a>
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#industries">Industries</a>
+        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
 
-      <!-- TESTIMONIALS -->
-      <section id="clients" class="py-14 sm:py-16 lg:py-20">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-center">What Clients Are Saying About My WordPress Services</h2>
-          <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6"><div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=1" alt="Client" /><div><div class="font-semibold">Sarah Johnson</div><div class="text-xs text-white/60">5 ★★★★★</div></div></div><p class="mt-3 text-white/70">“Working with Umer was an excellent experience. He delivered on time, optimized my site’s performance, and provided great post-launch support. Truly professional!</p></div>
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6"><div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=5" alt="Client" /><div><div class="font-semibold">David Miller</div><div class="text-xs text-white/60">5 ★★★★★</div></div></div><p class="mt-3 text-white/70">Umer completely transformed our outdated website into a modern, high-performing WordPress site. His attention to detail and quick communication made the whole process effortless.</p></div>
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6"><div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=24
-                " alt="Client" /><div><div class="font-semibold">Olivia Bennett</div><div class="text-xs text-white/60">5 ★★★★★</div></div></div><p class="mt-3 text-white/70">I’ve worked with many developers, but Umer stands out for his professionalism and creativity. My business website now loads faster, looks cleaner, and ranks higher on Google!</p></div>
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6"><div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=36" alt="Client" /><div><div class="font-semibold">Henry Collins</div><div class="text-xs text-white/60">5 ★★★★★</div></div></div><p class="mt-3 text-white/70">Highly skilled and reliable! Umer built my eCommerce store from scratch with custom features and SEO optimization. I’m beyond satisfied with the results.</p></div>
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6"><div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=12" alt="Client" /><div><div class="font-semibold">Michael Lee</div><div class="text-xs text-white/60">5 ★★★★★</div></div></div><p class="mt-3 text-white/70">I was impressed by Umer’s creativity and communication. He perfectly captured my brand’s identity through clean design and smooth functionality. Highly recommended!</p></div>
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6"><div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=11" alt="Client" /><div><div class="font-semibold">Nadia Patel</div><div class="text-xs text-white/60">5 ★★★★★</div></div></div><p class="mt-3 text-white/70">Umer’s expertise in WordPress and Elementor is next-level. He delivered a stunning, fully responsive site that exceeded our expectations and improved conversions.</p></div>
-          </div>
-        </div>
-      </section>
 
-      <!-- BRANDS -->
-      <section class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-[#00ff99] via-[#00e0ff] to-[#00ff99] text-transparent bg-clip-text">Proudly Collaborated with These Renowned Brands</h2>
-              
-            <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-                <!-- Google -->
-                <div class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
-                    <img src="./download (1).png" alt="" style="filter: brightness(0) invert(1);">
-                  <span class="text-sm sm:text-base font-semibold text-white mt-1">AMC Networks</span>
-                  <p class="text-xs text-gray-400 text-center">Collaborated with leading brands to deliver impactful digital experiences.</p>
-                </div>
-              
-                <!-- Stripe -->
-                <div class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
-                  <img class=" mt-4" src="./download (2).png" alt="" style=" filter: brightness(0) invert(1);">
-                  <span class="text-sm sm:text-base font-semibold text-white mt-1">AIRSTREAM</span>
-                  <p class="text-xs text-gray-400 text-center">Partnered with global teams to build modern, responsive solutions.</p>
-                </div>
-              
-                <!-- Visa -->
-                <div class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
-                 <img src="./download (3).png" alt="">
-                  <span class="text-sm sm:text-base font-semibold text-white mt-1">Risas</span>
-                  <p class="text-xs text-gray-400 text-center">Worked on creative projects focused on innovation and design.</p>
-                </div>
-              
-                <!-- Intercom -->
-                <div class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
-                    <img class=" mt-4" src="./download (4).png" alt="" style=" filter: brightness(0) invert(1);">
-                    <span class="text-sm sm:text-base font-semibold text-white mt-1">ROGUE</span>
-                  <p class="text-xs text-gray-400 text-center">Contributed to successful campaigns through smart web strategies.</p>
-                </div>
-              
-                <!-- Samsung -->
-                <div class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
-                 <img src="./download (5).png" alt="">
-                  <span class="text-sm sm:text-base font-semibold text-white mt-1">Tiny Seed</span>
-                  <p class="text-xs text-gray-400 text-center">Helped businesses grow with user-friendly and aesthetic designs.</p>
-                </div>
-              
-                <!-- Bravado -->
-                <div class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
-                <img src="./download.png" alt="">
-                  <span class="text-sm sm:text-base font-semibold text-white mt-1">BATA</span>
-                  <p class="text-xs text-gray-400 text-center">Collaborated with professionals to craft high-quality digital products.</p>
-                </div>
+  <main id="home" class="pt-16">
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 animated-gradient"></div>
+      <!-- floating tech icons -->
+      <iconify-icon icon="vscode-icons:file-type-html" class="tech-float spin hidden sm:block" style="top:10%; left:6%;"
+        width="28" height="28"></iconify-icon>
+      <iconify-icon icon="vscode-icons:file-type-css" class="tech-float spin hidden sm:block"
+        style="top:18%; right:10%; animation-duration: 32s;" width="28" height="28"></iconify-icon>
+      <iconify-icon icon="logos:javascript" class="tech-float spin hidden lg:block"
+        style="bottom:18%; left:12%; animation-duration: 28s;" width="26" height="26"></iconify-icon>
+      <iconify-icon icon="logos:wordpress" class="tech-float spin hidden md:block"
+        style="bottom:12%; right:16%; animation-duration: 36s;" width="32" height="32"></iconify-icon>
+      <iconify-icon icon="logos:elementor" class="tech-float spin hidden md:block"
+        style="top:46%; left:48%; animation-duration: 30s;" width="24" height="24"></iconify-icon>
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <!-- Left: Profile image in clean circular frame, centered -->
+          <div class="order-1">
+            <div class="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 floaty">
+              <div class="absolute -inset-3 rounded-full blur-2xl opacity-40"
+                style="background: radial-gradient(closest-side, rgba(255,255,255,0.08), transparent), radial-gradient(closest-side, rgba(255,255,255,0.08), transparent), radial-gradient(closest-side, rgba(255,255,255,0.08), transparent)">
               </div>
-              
-      </section>
+              <div class="absolute inset-0 rounded-full bg-white/5 ring-1 ring-inset ring-white/10"></div>
+              <img src="./UMER_ME.png" alt="Umer Zafar portrait"
+                class="relative z-10 w-full h-full object-cover rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.45)]" />
+              <div
+                class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-48 sm:w-60 h-6 sm:h-7 rounded-full bg-black/60 blur-xl">
+              </div>
+            </div>
+          </div>
+          <!-- Right: Text content -->
+          <div class="order-2 text-center lg:text-left reveal">
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs tracking-wide text-white/80">
+              <span>👋 Hi, I’m Umer Zafar</span>
+            </div>
+            <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+              Your Trusted Freelance WordPress Developer
+            </h1>
+            <p id="typing" class="mt-2 text-white/80 typing"></p>
+            <p class="mt-3 text-white/70 max-w-2xl mx-auto lg:mx-0">
+              With over 10 years of experience, I specialize in creating responsive WordPress websites, custom themes,
+              and complex WooCommerce solutions. Whether you need custom development, plugin building, or
+              troubleshooting, I’ve got you covered. I pride myself on delivering user-friendly, SEO-optimized sites
+              that enhance your online presence and drive engagement.
+            </p>
+            <p class="mt-2 text-white/60">Ready to build something amazing together?</p>
+            <div
+              class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs tracking-wide text-white/80">
+              <iconify-icon icon="tabler:award" width="16" height="16" class="text-neon-green"></iconify-icon>
+              <span>13+ Years Experience</span>
+            </div>
+           <div class="mt-6 flex flex-col sm:flex-row sm:justify-center gap-3 sm:gap-4">
+  <a href="#contact"
+    class="inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-md bg-transparent text-white font-semibold ring-1 ring-white/70 hover:bg-white hover:text-black transition">
+    Hire Me
+  </a>
+  <a href="#clients"
+    class="inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-md bg-transparent text-white font-semibold ring-1 ring-white/30 hover:bg-white/10 transition">
+    View Portfolio
+  </a>
+</div>
 
-      <!-- INDUSTRIES -->
-      <section id="industries" class="py-14 sm:py-16 lg:py-20">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-white via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            Industries I Proudly Support with Expert WordPress Services
-          </h2>
-      
-          <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:school" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Education</h3>
-              <p class="mt-2 text-base text-white/70">LMS, course portals, and faculty sites.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:shopping-bag" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">E-commerce</h3>
-              <p class="mt-2 text-base text-white/70">Stores, subscriptions, and funnels.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:medical-cross" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Healthcare</h3>
-              <p class="mt-2 text-base text-white/70">Clinics, telehealth, and patient portals.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:building-skyscraper" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Real Estate</h3>
-              <p class="mt-2 text-base text-white/70">Listings, IDX, and booking flows.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:user" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Portfolio</h3>
-              <p class="mt-2 text-base text-white/70">Personal brands and creatives.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:building" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Agency</h3>
-              <p class="mt-2 text-base text-white/70">White-label builds and retainers.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:news" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Blogging</h3>
-              <p class="mt-2 text-base text-white/70">Magazines and content hubs.</p>
-            </div>
-      
-            <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
-              <iconify-icon icon="tabler:cpu" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
-              <h3 class="text-lg font-semibold text-white">Technology</h3>
-              <p class="mt-2 text-base text-white/70">SaaS, docs, and landing pages.</p>
+            <div class="mt-5 flex justify-center lg:justify-start items-center gap-3 text-white/80">
+              <a href="http://www.linkedin.com/in/lms-membership-and-learning-community-development-expert"
+                target="_blank" aria-label="LinkedIn"
+                class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon
+                  icon="mdi:linkedin" width="18" height="18"></iconify-icon></a>
+              <a href="https://web.facebook.com/umer.zafargillani/" target="_blank" aria-label="Facebook"
+                class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon
+                  icon="mdi:facebook" width="18" height="18"></iconify-icon></a>
+              <a href="https://wa.me/923001234567" target="_blank" aria-label="WhatsApp"
+                class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition">
+                <iconify-icon icon="mdi:whatsapp" width="18" height="18"></iconify-icon>
+              </a>
             </div>
           </div>
         </div>
-      </section>
-      
-      <!-- VISION -->
-      <section class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-2xl sm:text-3xl font-extrabold">My Vision</h2>
-          <p class="mt-3 text-white/70 max-w-3xl mx-auto">To empower businesses with modern, efficient, and conversion-focused WordPress experiences that grow with your audience.</p>
+        <!-- Scroll indicator -->
+        <div class="mt-10 flex justify-center">
+          <div class="scroll-indicator text-white/60 text-sm inline-flex items-center gap-2">
+            <span>↓ Scroll to Explore</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES 8 CARDS -->
+    <section id="services" class="py-14 sm:py-16 lg:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold">What Services Do I Provide?</h2>
+          <p class="mt-2 text-white/60 max-w-2xl mx-auto">End‑to‑end WordPress solutions focused on speed, SEO, and
+            conversions.</p>
+        </div>
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- 8 service cards, icon on top, then heading, then paragraph -->
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:device-desktop" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">WordPress Setup & Configurations</h3>
+            <p class="mt-2 text-sm text-white/70">Get started hassle-free with a professional WordPress setup and
+              installation, ensuring everything’s ready for you to create your ideal website.</p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:brand-wordpress" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">Custom Theme & Plugin Development</h3>
+            <p class="mt-2 text-sm text-white/70">Get a personalized WordPress experience with custom-built themes and
+              plugins that perfectly match your brand’s style and functionality.
+            </p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:lego" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">E-Commerce & LMS Solutions</h3>
+            <p class="mt-2 text-sm text-white/70">Build a sleek, secure online store or elearning website that’s easy to
+              manage and designed to boost conversions.</p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:shopping-cart" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">Website Optimization & Performance</h3>
+            <p class="mt-2 text-sm text-white/70">Make your WordPress site faster and more efficient with optimization
+              services that ensure quick load times and a seamless user experience.</p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:rocket" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">WordPress Design & User Experience</h3>
+            <p class="mt-2 text-sm text-white/70">Transform your WordPress site into an engaging experience with clean,
+              modern designs and intuitive navigation.</p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:bug" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">Bug Fixing & Troubleshooting</h3>
+            <p class="mt-2 text-sm text-white/70">Say goodbye to website glitches! I’ll quickly troubleshoot and resolve
+              any issues to keep your site running smoothly.</p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+              <iconify-icon icon="tabler:shield-check" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">Consulting & Support</h3>
+            <p class="mt-2 text-sm text-white/70">Need advice or ongoing support? I provide expert guidance to help you
+              make the most of your WordPress site.</p>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow hover:-translate-y-1 transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-neon-green/10 ring-1 ring-inset ring-neon-green/30">
+
+              <iconify-icon icon="tabler:seo" class="text-neon-green" width="22" height="22"></iconify-icon>
+            </span>
+            <h3 class="mt-4 text-xl font-semibold">White Label Website Development</h3>
+            <p class="mt-2 text-sm text-white/70">Expand your service offering with white-label WordPress solutions
+              tailored to your specific needs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGIES -->
+    <section id="tech" class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold">Technologies & Tools</h2>
+          <p class="mt-2 text-white/60 max-w-2xl mx-auto">The stack I use to craft performant, scalable and
+            editor‑friendly WordPress experiences.</p>
           <div class="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-neon-green to-transparent"></div>
         </div>
-      </section>
-
-      <!-- FAQ -->
-      <section id="faqs" class="py-20 bg-black relative">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-white via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-10">
-            Frequently Asked Questions
-          </h2>
-      
-          <div class="divide-y divide-white/10 space-y-4">
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>What kind of WordPress services do you offer?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                I offer complete WordPress solutions including theme customization, plugin integration, WooCommerce setup, performance optimization, SEO enhancement, and full website redesigns from scratch.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>How long does it take to complete a project?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                A simple landing page can be delivered within a few days, while larger websites typically take between 2–4 weeks depending on features, revisions, and client feedback rounds.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>Can you redesign or improve my existing website?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                Absolutely! I specialize in modern redesigns that enhance user experience, improve SEO, and optimize website performance while keeping your existing content and brand identity intact.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>Do you offer website maintenance and updates?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                Yes! I provide ongoing support, updates, and monitoring to ensure your WordPress site stays secure, fast, and compatible with the latest plugins and themes.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>What payment methods do you accept?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                I accept Bank Transfers, Payoneer, Wise, and PayPal. For larger projects, milestone payments can be arranged for client convenience.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>Do you build eCommerce stores?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                Yes! I create fully functional WooCommerce stores with product pages, checkout systems, payment integration, and responsive design for mobile users.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>Can you integrate SEO into my site during development?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                Definitely. I build SEO-optimized websites with clean code, fast loading speed, schema markup, and on-page SEO settings to boost your rankings.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>Will my website be mobile-friendly?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                Every site I build is fully responsive and tested across devices to ensure smooth performance on desktops, tablets, and smartphones.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>Can you migrate my website from another platform?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                Yes, I can safely migrate your site from Wix, Squarespace, Shopify, or any other platform to WordPress with zero data loss and SEO preservation.
-              </p>
-            </details>
-      
-            <details class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
-              <summary class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
-                <span>What makes your WordPress development unique?</span>
-                <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20" height="20"></iconify-icon>
-              </summary>
-              <p class="mt-3 text-white/70 text-base leading-relaxed">
-                I focus on performance, SEO, user experience, and scalability — blending technical precision with creative design to deliver websites that perform and convert.
-              </p>
-            </details>
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+          <!-- Item -->
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="HTML5">
+              <iconify-icon icon="simple-icons:html5" width="28" height="28" class="text-[#E34F26]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">HTML5</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="CSS3">
+              <iconify-icon icon="simple-icons:css3" width="28" height="28" class="text-[#1572B6]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">CSS3</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="JavaScript">
+              <iconify-icon icon="simple-icons:javascript" width="26" height="26" class="text-[#F7DF1E]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">JavaScript</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="WordPress">
+              <iconify-icon icon="simple-icons:wordpress" width="26" height="26" class="text-[#21759B]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">WordPress</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="PHP">
+              <iconify-icon icon="simple-icons:php" width="30" height="30" class="text-[#777BB4]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">PHP</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="jQuery">
+              <iconify-icon icon="simple-icons:jquery" width="28" height="28" class="text-[#0769AD]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">jQuery</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="Elementor">
+              <iconify-icon icon="simple-icons:elementor" width="26" height="26" class="text-[#92003B]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">Elementor</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl ring-1 ring-inset ring-white/15"
+              aria-label="Divi" style="background: linear-gradient(135deg, #8B5CF6, #EC4899);">
+              <span class="text-white font-bold">D</span>
+            </span>
+            <div class="mt-3 font-semibold">Divi</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="Oxygen Builder">
+              <iconify-icon icon="tabler:tools" width="26" height="26" class="text-[#00B5AD]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">Oxygen Builder</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="WooCommerce">
+              <iconify-icon icon="simple-icons:woocommerce" width="28" height="28"
+                class="text-[#96588A]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">WooCommerce</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl ring-1 ring-inset ring-white/15"
+              aria-label="Advanced Custom Fields" style="background-color:#00D1AE;">
+              <span class="text-black font-bold">ACF</span>
+            </span>
+            <div class="mt-3 font-semibold">ACF</div>
+          </div>
+          <div
+            class="group rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-5 text-center hover:shadow-glow transition">
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15"
+              aria-label="Yoast SEO / AIOSEO">
+              <iconify-icon icon="simple-icons:yoast" width="26" height="26" class="text-[#A4286A]"></iconify-icon>
+            </span>
+            <div class="mt-3 font-semibold">Yoast / AIOSEO</div>
           </div>
         </div>
-      </section>
-      
+      </div>
+    </section>
 
-      <!-- CONTACT -->
-      <section id="contact" class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <form class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><label class="text-sm text-white/70">Name</label><input class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 focus:ring-neon-green/50 p-2.5 outline-none" type="text" placeholder="Your name" /></div>
-                <div><label class="text-sm text-white/70">Email</label><input class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 focus:ring-neon-green/50 p-2.5 outline-none" type="email" placeholder="you@example.com" /></div>
+    <!-- WHY HIRE -->
+    <section id="why-hire" class="py-14 sm:py-16 lg:py-20 relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent pointer-events-none">
+      </div>
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold">
+          <span class="bg-gradient-to-r from-neon-green via-white to-neon-green bg-clip-text text-transparent">Why hire
+            Umer Zafar as your Freelance WordPress Developer?</span>
+        </h2>
+        <p class="mt-3 text-white/70 max-w-3xl mx-auto">Choosing the right WordPress developer is crucial for your
+          business. A poorly developed website can hurt your brand and impact your profits. Whether you’re planning a
+          new project or looking to enhance an existing site, working with an experienced developer ensures things are
+          done right from the start.
+
+          With over 10+ years in the WordPress world, I’ve seen the consequences of substandard development. Instead of
+          dealing with costly fixes later, why not get it right the first time? I specialize in creating custom
+          WordPress solutions from the ground up, using modern tools and technologies like HTML, CSS, PHP, JavaScript,
+          and JQuery to build sites that perform well and look great. My clients range from startups to large
+          enterprises, and each project is treated with the same level of care and precision.</p>
+        <div class="mx-auto mt-4 h-px w-28 bg-gradient-to-r from-transparent via-neon-green to-transparent"></div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left max-w-5xl mx-auto">
+          <div class="flex items-start gap-3">
+            <iconify-icon icon="tabler:check" class="text-neon-green" width="20"
+              height="20"></iconify-icon><span>Extensive experience developing custom WordPress solutions for clients
+              across industries.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <iconify-icon icon="tabler:check" class="text-neon-green" width="20"
+              height="20"></iconify-icon><span>Consistent updates and clear communication to keep your project on
+              track.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <iconify-icon icon="tabler:check" class="text-neon-green" width="20"
+              height="20"></iconify-icon><span>Proficiency in front-end and back-end development ensures cohesive and
+              optimized builds.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>
+              I stand by my work, offering a 6-month post-launch guarantee to fix any issues within the original project
+              scope.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <iconify-icon icon="tabler:check" class="text-neon-green" width="20" height="20"></iconify-icon><span>From
+              planning and development to launch and ongoing improvements, I’m here to support your success at every
+              stage.</span>
+          </div>
+
+        </div>
+
+        <a href="#contact"
+          class="contact-btn mt-10 inline-flex items-center px-7 py-3 rounded-md bg-neon-green text-black font-semibold shadow-glow transition">
+          <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>c</span><span>t</span>
+          <span>&nbsp;</span><span>U</span><span>s</span>
+        </a>
+      </div>
+    </section>
+
+
+    <section id="cta-hire" class="relative py-24 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0a0a0a] text-center">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-5xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+          Want to Hire a
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00ff99] to-[#00e0ff]">
+            Professional WordPress Expert?
+          </span>
+        </h2>
+
+        <p class="mt-5 text-gray-400 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+          Let’s build something powerful, fast, and visually stunning — crafted to perform.
+        </p>
+
+        <div class="mt-10">
+
+          <a href="#contact"
+            class="contact-btn inline-flex items-center px-7 py-3 rounded-md bg-neon-green text-black font-semibold shadow-glow transition">
+            <span>L</span><span>A</span><span>U</span><span>N</span><span>C</span><span>H</span><span>&nbsp;</span><span>Y</span><span>O</span><span>U</span><span>R</span><span>&nbsp;</span>
+            <span>&nbsp;</span><span>P</span><span>R</span><span>O</span><span>E</span><span>C</span><span>T</span>
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-gradient-to-r from-transparent via-[#00ff99]/40 to-transparent mt-4">
+      </div>
+      <div
+        class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-gradient-to-r from-transparent via-[#00e0ff]/40 to-transparent">
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="clients" class="py-14 sm:py-16 lg:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-center">What Clients Are Saying About My WordPress Services
+        </h2>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6">
+            <div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover"
+                src="https://i.pravatar.cc/80?img=1" alt="Client" />
+              <div>
+                <div class="font-semibold">Sarah Johnson</div>
+                <div class="text-xs text-white/60">5 ★★★★★</div>
               </div>
-              <div class="mt-4"><label class="text-sm text-white/70">Subject</label><input class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 focus:ring-neon-green/50 p-2.5 outline-none" type="text" placeholder="Project subject" /></div>
-              <div class="mt-4"><label class="text-sm text-white/70">Message</label><textarea class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 focus:ring-neon-green/50 p-2.5 outline-none" rows="5" placeholder="Tell me about your project"></textarea></div>
-              <a href="#contact" class="contact-btn mt-10 inline-flex items-center px-7 py-3 rounded-md bg-neon-green text-black font-semibold shadow-glow transition">
-                <span>S</span><span>u</span><span>b</span><span>m</span><span>i</span><span>t</span><
-              </a>
-            </form>
-            <div class="self-center"><h3 class="text-2xl font-extrabold">Let’s talk about your project</h3><p class="mt-3 text-white/70">Send a quick message with your goals and timeline. I typically respond within 24 hours.</p></div>
+            </div>
+            <p class="mt-3 text-white/70">“Working with Umer was an excellent experience. He delivered on time,
+              optimized my site’s performance, and provided great post-launch support. Truly professional!</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6">
+            <div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover"
+                src="https://i.pravatar.cc/80?img=11" alt="Client" />
+              <div>
+                <div class="font-semibold">David Miller</div>
+                <div class="text-xs text-white/60">5 ★★★★★</div>
+              </div>
+            </div>
+            <p class="mt-3 text-white/70">Umer completely transformed our outdated website into a modern,
+              high-performing WordPress site. His attention to detail and quick communication made the whole process
+              effortless.</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6">
+            <div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover" src="https://i.pravatar.cc/80?img=24
+                " alt="Client" />
+              <div>
+                <div class="font-semibold">Olivia Bennett</div>
+                <div class="text-xs text-white/60">5 ★★★★★</div>
+              </div>
+            </div>
+            <p class="mt-3 text-white/70">I’ve worked with many developers, but Umer stands out for his professionalism
+              and creativity. My business website now loads faster, looks cleaner, and ranks higher on Google!</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6">
+            <div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover"
+                src="https://i.pravatar.cc/80?img=" alt="Client" />
+              <div>
+                <div class="font-semibold">Henry Collins</div>
+                <div class="text-xs text-white/60">5 ★★★★★</div>
+              </div>
+            </div>
+            <p class="mt-3 text-white/70">Highly skilled and reliable! Umer built my eCommerce store from scratch with
+              custom features and SEO optimization. I’m beyond satisfied with the results.</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6">
+            <div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover"
+                src="https://i.pravatar.cc/80?img=12" alt="Client" />
+              <div>
+                <div class="font-semibold">Michael Lee</div>
+                <div class="text-xs text-white/60">5 ★★★★★</div>
+              </div>
+            </div>
+            <p class="mt-3 text-white/70">I was impressed by Umer’s creativity and communication. He perfectly captured
+              my brand’s identity through clean design and smooth functionality. Highly recommended!</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6">
+            <div class="flex items-center gap-3"><img class="h-10 w-10 rounded-full object-cover"
+                src="https://i.pravatar.cc/80?img=5" alt="Client" />
+              <div>
+                <div class="font-semibold">Nadia Patel</div>
+                <div class="text-xs text-white/60">5 ★★★★★</div>
+              </div>
+            </div>
+            <p class="mt-3 text-white/70">Umer’s expertise in WordPress and Elementor is next-level. He delivered a
+              stunning, fully responsive site that exceeded our expectations and improved conversions.</p>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <!-- FOOTER -->
-    <footer class="py-12 bg-black text-white/80 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          <!-- 1️⃣ Logo & Tagline -->
-          <div>
-            <div class="flex items-center gap-3 mb-3">
-                <img src="./umer-zafar-logo-1.png" alt="">
-            
-            </div>
-            <p class="text-white/70 text-base leading-relaxed">
-              Freelance WordPress Developer crafting high-performance, SEO-optimized websites that deliver real results.
+    <!-- BRANDS -->
+    <section class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2
+          class="text-2xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-[#00ff99] via-[#00e0ff] to-[#00ff99] text-transparent bg-clip-text">
+          Proudly Collaborated with These Renowned Brands</h2>
+
+        <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+          <!-- Google -->
+          <div
+            class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
+            <img src="./download (1).png" alt="" style="filter: brightness(0) invert(1);">
+            <span class="text-sm sm:text-base font-semibold text-white mt-1">AMC Networks</span>
+            <p class="text-xs text-gray-400 text-center">Collaborated with leading brands to deliver impactful digital
+              experiences.</p>
+          </div>
+
+          <!-- Stripe -->
+          <div
+            class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
+            <img class=" mt-4" src="./download (2).png" alt="" style=" filter: brightness(0) invert(1);">
+            <span class="text-sm sm:text-base font-semibold text-white mt-1">AIRSTREAM</span>
+            <p class="text-xs text-gray-400 text-center">Partnered with global teams to build modern, responsive
+              solutions.</p>
+          </div>
+
+          <!-- Visa -->
+          <div
+            class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
+            <img src="./download (3).png" alt="">
+            <span class="text-sm sm:text-base font-semibold text-white mt-1">Risas</span>
+            <p class="text-xs text-gray-400 text-center">Worked on creative projects focused on innovation and design.
             </p>
           </div>
-      
-          <!-- 2️⃣ Quick Links -->
-          <div>
-            <h4 class="text-xl font-semibold mb-4 ml-10 text-green-400">Quick Links</h4>
-            <ul class="space-y-2 text-base ml-10">
-              <li><a href="#home" class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Home</a></li>
-              <li><a href="#services" class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Services</a></li>
-              <li><a href="#tech" class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Technologies</a></li>
-              <li><a href="#faqs" class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">FAQs</a></li>
-              <li><a href="#contact" class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Contact</a></li>
-            </ul>
-          </div>
-      
-          <!-- 3️⃣ About -->
-          <div>
-            <h4 class="text-xl font-semibold mb-4 text-green-400">About</h4>
-            <p class="text-white/70 text-base leading-relaxed">
-              I’m Umer Zafar — a passionate WordPress Developer focused on building visually stunning, user-friendly websites that perform flawlessly across all devices.
-            </p>
-          </div>
-      
-          <!-- 4️⃣ Follow & Contact -->
-          <div>
-            <h4 class="text-xl font-semibold mb-4 text-green-400">Follow & Contact</h4>
-            <ul class="space-y-2 text-base">
-              <li><a href="mailto:umerzafar@email.com" class="hover:text-green-400 transition">umerzafar123@email.com</a></li>
-              <li><a href="tel:+923001234567" class="hover:text-green-400 transition">+92 332 3289918</a></li>
-              <li><span>Lahore, Pakistan</span></li>
-            </ul>
-      
-            <div class="flex items-center gap-3 mt-4">
-                <a href="http://www.linkedin.com/in/lms-membership-and-learning-community-development-expert"  target="_blank" aria-label="LinkedIn" class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon icon="mdi:linkedin" width="18" height="18"></iconify-icon></a>
-                <a href="https://web.facebook.com/umer.zafargillani/"  target="_blank" aria-label="Facebook" class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon icon="mdi:facebook" width="18" height="18"></iconify-icon></a>
-                <a href="https://wa.me/03323289918" target="_blank" aria-label="WhatsApp" class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition">
-                    <iconify-icon icon="mdi:whatsapp" width="18" height="18"></iconify-icon>
-                  </a>              
-            </div>
-          </div>
-        </div>
-      
-        <!-- bottom line -->
-        <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/60">
-          © 2025 <span class="text-green-400 font-semibold">Umer Zafar</span> | Designed & Developed with using HTML, CSS & WordPress.
-        </div>
-      </footer>
-      
 
-    <script>
-      // sticky nav background on scroll
-      const menuBtn = document.getElementById("menu-btn");
+          <!-- Intercom -->
+          <div
+            class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
+            <img class=" mt-4" src="./download (4).png" alt="" style=" filter: brightness(0) invert(1);">
+            <span class="text-sm sm:text-base font-semibold text-white mt-1">ROGUE</span>
+            <p class="text-xs text-gray-400 text-center">Contributed to successful campaigns through smart web
+              strategies.</p>
+          </div>
+
+          <!-- Samsung -->
+          <div
+            class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
+            <img src="./download (5).png" alt="">
+            <span class="text-sm sm:text-base font-semibold text-white mt-1">Tiny Seed</span>
+            <p class="text-xs text-gray-400 text-center">Helped businesses grow with user-friendly and aesthetic
+              designs.</p>
+          </div>
+
+          <!-- Bravado -->
+          <div
+            class="flex flex-col items-center gap-3 rounded-2xl bg-white/10 ring-1 ring-inset ring-white/20 p-6 hover:scale-105 transition-all duration-300">
+            <img src="./download.png" alt="">
+            <span class="text-sm sm:text-base font-semibold text-white mt-1">BATA</span>
+            <p class="text-xs text-gray-400 text-center">Collaborated with professionals to craft high-quality digital
+              products.</p>
+          </div>
+        </div>
+
+    </section>
+
+    <!-- INDUSTRIES -->
+    <section id="industries" class="py-14 sm:py-16 lg:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2
+          class="text-3xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-white via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+          Industries I Proudly Support with Expert WordPress Services
+        </h2>
+        <p
+          style="font-size:18px; color:#f7f7f7; text-align:center; line-height:1.8; font-family:'Poppins', sans-serif; margin:20px 0; letter-spacing:0.5px;">
+          From e-commerce to creative portfolios, discover how our WordPress solutions help businesses across various
+          industries thrive online.
+        </p>
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="tabler:school" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Education & e-Learning</h3>
+            <p class="mt-2 text-base text-white/70">Learning management systems, online course platforms, and
+              school/university websites.</p>
+          </div>
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="mdi:food" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Food & Beverage</h3>
+            <p class="mt-2 text-base text-white/70">Websites for restaurants, cafes, and food bloggers, including menu
+              displays and reservation systems.</p>
+          </div>
+
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="tabler:medical-cross" class="text-neon-green mb-4" width="40"
+              height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Health & Wellness</h3>
+            <p class="mt-2 text-base text-white/70">Websites for clinics, doctors, fitness centers, and wellness
+              consultants with appointment bookings.</p>
+          </div>
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="tabler:building-skyscraper" class="text-neon-green mb-4" width="40"
+              height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Real Estate</h3>
+            <p class="mt-2 text-base text-white/70">Property listings, agent pages, and map integrations for real estate
+              agencies.</p>
+          </div>
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="tabler:user" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Creative Portfolios</h3>
+            <p class="mt-2 text-base text-white/70">Showcasing work for artists, designers, photographers, and content
+              creators with customizable galleries.</p>
+          </div>
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="mdi:hand-heart" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Nonprofit & Charity</h3>
+            <p class="mt-2 text-base text-white/70">Donation pages, volunteer sign-ups, and awareness campaign websites
+              for nonprofits.</p>
+          </div>
+
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="mdi:airplane" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Hospitality & Travel</h3>
+            <p class="mt-2 text-base text-white/70">Websites for hotels, travel agencies, and tour operators featuring booking systems and itinerary details.</p>
+          </div>
+
+
+          <div
+            class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-8 hover:shadow-glow transition transform hover:scale-105">
+            <iconify-icon icon="tabler:confetti" class="text-neon-green mb-4" width="40" height="40"></iconify-icon>
+            <h3 class="text-lg font-semibold text-white">Events & Entertainment</h3>
+            <p class="mt-2 text-base text-white/70">Platforms for event management companies, venues, and entertainment services with event booking and schedule management.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">My Vision</h2>
+        <p class="mt-3 text-white/70 max-w-3xl mx-auto">To empower businesses with modern, efficient, and
+          conversion-focused WordPress experiences that grow with your audience.</p>
+        <div class="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-neon-green to-transparent"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faqs" class="py-20 bg-black relative">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <h2
+          class="text-3xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-white via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-10">
+          Frequently Asked Questions
+        </h2>
+
+        <div class="divide-y divide-white/10 space-y-4">
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>How long will it take to develop my WordPress website?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              Development timelines vary based on the project's complexity and specific requirements. A basic site may take a few days, while a custom site with advanced features could take a couple of weeks.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>Will my WordPress website be mobile-friendly and responsive?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              Yes, creating a responsive design that works seamlessly across all devices, including smartphones and tablets, is standard practice in modern WordPress development.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>Can you customize my website to match my brand and unique requirements?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              Absolutely! WordPress is highly customizable, allowing for themes, plugins, and custom code to fit your brand’s design and functionality needs.
+
+
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>What are your payment terms for WordPress development services?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              My standard payment terms typically include an initial deposit to start the project, followed by milestone-based payments as development progresses, and a final payment upon project completion. I’m open to discussing flexible payment plans that suit both parties.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>Will my website be SEO-friendly, and do you provide SEO optimization?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              Yes, I develop WordPress websites with SEO best practices in mind, including proper site structure, clean code, and integration with SEO plugins to enhance search engine visibility.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>What kind of security measures will you implement on my WordPress site?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+             I implement various security measures, such as installing security plugins, enabling SSL, ensuring regular updates, and configuring firewalls, to protect your site from vulnerabilities.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>Can you develop a custom theme or plugin for my WordPress website?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+             Yes, I specialize in developing custom themes and plugins adapted to meet your specific requirements and functionality needs. This allows your website to have unique features that aren’t available with standard solutions.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>Do you offer post-launch support and maintenance for my WordPress site?
+</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+             Yes, I provide post-launch support that includes troubleshooting, updates, backups, and ongoing maintenance to keep your website running smoothly.
+
+
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>Can you migrate my website from another platform?</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              Yes, I can safely migrate your site from Wix, Squarespace, Shopify, or any other platform to WordPress
+              with zero data loss and SEO preservation.
+            </p>
+          </details>
+
+          <details
+            class="group bg-white/5 ring-1 ring-inset ring-white/10 rounded-2xl p-6 shadow-lg hover:shadow-neon transition-all duration-300">
+            <summary
+              class="flex cursor-pointer items-center justify-between text-left text-lg font-semibold text-white">
+              <span>What makes your WordPress development unique?</span>
+              <iconify-icon class="transition-transform group-open:rotate-45" icon="tabler:plus" width="20"
+                height="20"></iconify-icon>
+            </summary>
+            <p class="mt-3 text-white/70 text-base leading-relaxed">
+              I focus on performance, SEO, user experience, and scalability — blending technical precision with creative
+              design to deliver websites that perform and convert.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-14 sm:py-16 lg:py-20 bg-ink-800/40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <form action="https://api.web3forms.com/submit" method="POST" id="form"
+  class="rounded-2xl bg-white/5 ring-1 ring-inset ring-white/10 p-6 shadow-glow">
+
+  <!-- Web3Forms Hidden Fields -->
+  <input type="hidden" name="access_key" value="6246d6de-82b4-4fee-ada0-bb714b3c16a0">
+  <input type="hidden" name="subject" value="New Submission from Web3Forms">
+  <input type="hidden" name="from_name" value="Umer Zafar Portfolio">
+  <input type="hidden" name="redirect" value="https://umerzafar.co/index2.html">
+  <input type="checkbox" name="botcheck" style="display:none;">
+
+  <!-- Visible Form Fields -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div>
+      <label class="text-sm text-white/70">Name</label>
+      <input name="name" type="text" placeholder="Your name" required
+        class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 
+        focus:ring-neon-green/50 p-2.5 outline-none">
+    </div>
+    <div>
+      <label class="text-sm text-white/70">Email</label>
+      <input name="email" type="email" placeholder="you@example.com" required
+        class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 
+        focus:ring-neon-green/50 p-2.5 outline-none">
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <label class="text-sm text-white/70">Subject</label>
+    <input name="subject" type="text" placeholder="Project subject"
+      class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 
+      focus:ring-neon-green/50 p-2.5 outline-none">
+  </div>
+
+  <div class="mt-4">
+    <label class="text-sm text-white/70">Message</label>
+    <textarea name="message" rows="5" placeholder="Tell me about your project" required
+      class="mt-1 w-full rounded-md bg-black/40 ring-1 ring-inset ring-white/10 
+      focus:ring-neon-green/50 p-2.5 outline-none"></textarea>
+  </div>
+
+  <button type="submit"
+    class="contact-btn mt-10 inline-flex items-center px-7 py-3 rounded-md 
+    bg-neon-green text-black font-semibold shadow-glow transition">
+    <span>S</span><span>u</span><span>b</span><span>m</span><span>i</span><span>t</span>
+  </button>
+</form>
+
+          <div class="self-center">
+            <h3 class="text-2xl font-extrabold">Let’s talk about your project</h3>
+            <p class="mt-3 text-white/70">Send a quick message with your goals and timeline. I typically respond within
+              24 hours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-12 bg-black text-white/80 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <!-- 1️⃣ Logo & Tagline -->
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <img src="./umer-zafar-logo-1.png" alt="">
+
+        </div>
+        <p class="text-white/70 text-base leading-relaxed">
+          Freelance WordPress Developer crafting high-performance, SEO-optimized websites that deliver real results.
+        </p>
+      </div>
+
+      <!-- 2️⃣ Quick Links -->
+      <div>
+        <h4 class="text-xl font-semibold mb-4 ml-10 text-green-400">Quick Links</h4>
+        <ul class="space-y-2 text-base ml-10">
+          <li><a href="#home"
+              class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Home</a>
+          </li>
+          <li><a href="#services"
+              class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Services</a>
+          </li>
+          <li><a href="#tech"
+              class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Technologies</a>
+          </li>
+          <li><a href="#faqs"
+              class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">FAQs</a>
+          </li>
+          <li><a href="#contact"
+              class="relative inline-block hover:text-green-400 transition before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] before:bg-green-400 before:transition-all hover:before:w-full">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 3️⃣ About -->
+      <div>
+        <h4 class="text-xl font-semibold mb-4 text-green-400">About</h4>
+        <p class="text-white/70 text-base leading-relaxed">
+          I’m Umer Zafar — a passionate WordPress Developer focused on building visually stunning, user-friendly
+          websites that perform flawlessly across all devices.
+        </p>
+      </div>
+
+      <!-- 4️⃣ Follow & Contact -->
+      <div>
+        <h4 class="text-xl font-semibold mb-4 text-green-400">Follow & Contact</h4>
+        <ul class="space-y-2 text-base">
+          <li><a href="mailto:umerzafar@email.com" class="hover:text-green-400 transition">umerzafar123@email.com</a>
+          </li>
+          <li><a href="tel:+923001234567" class="hover:text-green-400 transition">+92 332 3289918</a></li>
+          <li><span>Lahore, Pakistan</span></li>
+        </ul>
+
+        <div class="flex items-center gap-3 mt-4">
+          <a href="http://www.linkedin.com/in/lms-membership-and-learning-community-development-expert" target="_blank"
+            aria-label="LinkedIn"
+            class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon
+              icon="mdi:linkedin" width="18" height="18"></iconify-icon></a>
+          <a href="https://web.facebook.com/umer.zafargillani/" target="_blank" aria-label="Facebook"
+            class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition"><iconify-icon
+              icon="mdi:facebook" width="18" height="18"></iconify-icon></a>
+          <a href="https://wa.me/03323289918" target="_blank" aria-label="WhatsApp"
+            class="p-2 rounded-md bg-white/5 ring-1 ring-inset ring-white/10 hover:drop-shadow-neon transition">
+            <iconify-icon icon="mdi:whatsapp" width="18" height="18"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom line -->
+    <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/60">
+      © 2025 <span class="text-green-400 font-semibold">Umer Zafar</span> | Designed & Developed with using HTML, CSS &
+      WordPress.
+    </div>
+  </footer>
+
+
+  <script>
+   const menuBtn = document.getElementById("menu-btn");
   const mobileDrawer = document.getElementById("mobile-drawer");
   const iconMenu = document.getElementById("icon-menu");
   const iconClose = document.getElementById("icon-close");
@@ -838,106 +1399,116 @@
     }
   });
 
-      // Typing effect under headline
-      const typingEl = document.getElementById('typing');
-      const phrases = [
-        'WordPress Expert',
-        'Elementor Pro Designer',
-        'Frontend Developer',
-        'Speed Optimization Specialist'
-      ];
-      let pi = 0, ci = 0, deleting = false;
-      function typeLoop() {
-        if (!typingEl) return;
-        const full = phrases[pi % phrases.length];
-        ci += deleting ? -1 : 1;
-        typingEl.textContent = full.slice(0, Math.max(0, ci));
-        if (!deleting && ci === full.length) {
-          setTimeout(() => { deleting = true; }, 800);
-        } else if (deleting && ci === 0) {
-          deleting = false; pi++;
-        }
-        const delay = deleting ? 40 : 80;
-        setTimeout(typeLoop, delay);
-      }
-      typeLoop();
-
-      // Reveal on scroll for hero text
-      const revealEls = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
-      }, { threshold: 0.15 });
-      revealEls.forEach(el => io.observe(el));
-      
-      // Smooth scroll with click animation for anchor buttons/links
-      document.querySelectorAll('a[href^="#"]').forEach((link) => {
-        link.addEventListener('click', (e) => {
-          const href = link.getAttribute('href');
-          if (!href || href === '#' || href.length < 2) return;
-          const target = document.querySelector(href);
-          if (!target) return;
-          e.preventDefault();
-          // visual click animation
-          link.classList.add('click-slide');
-          setTimeout(() => link.classList.remove('click-slide'), 420);
-          // smooth scroll
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      });
-
-      // Theme toggle (Light <-> Dark) with localStorage persistence
-      const themeBtn = document.getElementById('theme-toggle');
-      const themeIcon = document.getElementById('theme-icon');
-      const themeLabel = document.getElementById('theme-label');
-      const applyTheme = (mode) => {
-        const body = document.body;
-        if (mode === 'light') {
-          body.classList.add('light');
-          themeBtn?.setAttribute('aria-pressed', 'true');
-          if (themeIcon) themeIcon.setAttribute('icon', 'tabler:moon');
-          if (themeLabel) themeLabel.textContent = 'Dark';
-          localStorage.setItem('theme', 'light');
-        } else {
-          body.classList.remove('light');
-          themeBtn?.setAttribute('aria-pressed', 'false');
-          if (themeIcon) themeIcon.setAttribute('icon', 'tabler:sun');
-          if (themeLabel) themeLabel.textContent = 'Light';
-          localStorage.setItem('theme', 'dark');
-        }
-      };
-      // Initialize from storage or prefers-color-scheme (default dark)
-      try {
-        const saved = localStorage.getItem('theme');
-        if (saved === 'light') applyTheme('light'); else applyTheme('dark');
-      } catch (_) { applyTheme('dark'); }
-      themeBtn?.addEventListener('click', () => {
-        const isLight = document.body.classList.contains('light');
-        applyTheme(isLight ? 'dark' : 'light');
-      });
-
-document.querySelectorAll("details").forEach((detail) => {
-  const content = detail.querySelector("p");
-
-  if (content) {
-    content.style.overflow = "hidden";
-    content.style.maxHeight = "0";
-    content.style.opacity = "0";
-    content.style.transition = "all 0.5s ease";
-  }
-
-  detail.addEventListener("toggle", () => {
-    if (detail.open) {
-      content.style.maxHeight = content.scrollHeight + "px";
-      content.style.opacity = "1";
+  // Optional: sticky background on scroll (smooth black fade)
+  window.addEventListener("scroll", () => {
+    const header = document.querySelector("header");
+    if (window.scrollY > 20) {
+      header.classList.add("bg-black/90", "backdrop-blur-md");
     } else {
-      content.style.maxHeight = "0";
-      content.style.opacity = "0";
+      header.classList.remove("bg-black/90", "backdrop-blur-md");
     }
   });
-});
+
+    // Typing effect under headline
+    const typingEl = document.getElementById('typing');
+    const phrases = [
+      'WordPress Expert',
+      'Elementor Pro Designer',
+      'Frontend Developer',
+      'Speed Optimization Specialist'
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    function typeLoop() {
+      if (!typingEl) return;
+      const full = phrases[pi % phrases.length];
+      ci += deleting ? -1 : 1;
+      typingEl.textContent = full.slice(0, Math.max(0, ci));
+      if (!deleting && ci === full.length) {
+        setTimeout(() => { deleting = true; }, 800);
+      } else if (deleting && ci === 0) {
+        deleting = false; pi++;
+      }
+      const delay = deleting ? 40 : 80;
+      setTimeout(typeLoop, delay);
+    }
+    typeLoop();
+
+    // Reveal on scroll for hero text
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Smooth scroll with click animation for anchor buttons/links
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#' || href.length < 2) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        // visual click animation
+        link.classList.add('click-slide');
+        setTimeout(() => link.classList.remove('click-slide'), 420);
+        // smooth scroll
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Theme toggle (Light <-> Dark) with localStorage persistence
+    const themeBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+    const applyTheme = (mode) => {
+      const body = document.body;
+      if (mode === 'light') {
+        body.classList.add('light');
+        themeBtn?.setAttribute('aria-pressed', 'true');
+        if (themeIcon) themeIcon.setAttribute('icon', 'tabler:moon');
+        if (themeLabel) themeLabel.textContent = 'Dark';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light');
+        themeBtn?.setAttribute('aria-pressed', 'false');
+        if (themeIcon) themeIcon.setAttribute('icon', 'tabler:sun');
+        if (themeLabel) themeLabel.textContent = 'Light';
+        localStorage.setItem('theme', 'dark');
+      }
+    };
+    // Initialize from storage or prefers-color-scheme (default dark)
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') applyTheme('light'); else applyTheme('dark');
+    } catch (_) { applyTheme('dark'); }
+    themeBtn?.addEventListener('click', () => {
+      const isLight = document.body.classList.contains('light');
+      applyTheme(isLight ? 'dark' : 'light');
+    });
+
+    document.querySelectorAll("details").forEach((detail) => {
+      const content = detail.querySelector("p");
+
+      if (content) {
+        content.style.overflow = "hidden";
+        content.style.maxHeight = "0";
+        content.style.opacity = "0";
+        content.style.transition = "all 0.5s ease";
+      }
+
+      detail.addEventListener("toggle", () => {
+        if (detail.open) {
+          content.style.maxHeight = content.scrollHeight + "px";
+          content.style.opacity = "1";
+        } else {
+          content.style.maxHeight = "0";
+          content.style.opacity = "0";
+        }
+      });
+    });
 </script>
 
-  </body>
-  </html>
 
+</body>
 
+</html>

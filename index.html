@@ -392,57 +392,56 @@
 
 <body class="bg-ink-900 text-white selection:bg-neon-green/30">
   <!-- NAVBAR -->
-  <header class="fixed top-0 inset-x-0 z-50 bg-black text-white">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 items-center justify-between">
-      <a href="#" class="block">
-        <img src="/umer-zafar-logo-1.png" alt="Logo" class="h-10 w-auto sm:h-12 md:h-14 lg:h-16 object-contain">
-      </a>
+<header class="fixed top-0 w-full z-50 bg-black text-white">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
+    <a href="#home" class="flex items-center">
+  <img src="./umer-zafar-logo-1.png" alt="Logo" class="h-10 w-auto object-contain" />
+</a>
 
-      <!-- Desktop Nav (hidden from 1024px and below) -->
-      <nav class="hidden lg:flex items-center gap-6 text-sm">
-        <a class="underline-hover" href="#home">Home</a>
-        <a class="underline-hover" href="#services">Services</a>
-        <a class="underline-hover" href="#tech">Technologies</a>
-        <a class="underline-hover" href="#cta-hire">Hire Me</a>
-        <a class="underline-hover" href="#clients">Clients</a>
-        <a class="underline-hover" href="#industries">Industries</a>
-        <a class="underline-hover" href="#contact">Contact</a>
-      </nav>
 
-      <div class="flex items-center gap-2 md:gap-4">
-        <button id="theme-toggle"
-          class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 ring-1 ring-inset ring-white/10 text-xs">
-          <iconify-icon id="theme-icon" icon="tabler:sun" width="16" height="16"></iconify-icon>
-          <span id="theme-label">Light</span>
-        </button>
+    <!-- Desktop Navbar -->
+    <nav class="hidden lg:flex items-center gap-6 text-sm">
+      <a class="underline-hover" href="#home">Home</a>
+      <a class="underline-hover" href="#services">Services</a>
+      <a class="underline-hover" href="#tech">Technologies</a>
+      <a class="underline-hover" href="#cta-hire">Hire Me</a>
+      <a class="underline-hover" href="#clients">Clients</a>
+      <a class="underline-hover" href="#industries">Industries</a>
+      <a class="underline-hover" href="#contact">Contact</a>
+    </nav>
 
-        <!-- Hamburger button (visible below lg screens) -->
-        <button id="menu-btn" class="lg:hidden p-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10"
-          aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
-          <iconify-icon id="icon-menu" icon="tabler:menu-2" width="20" height="20"></iconify-icon>
-          <iconify-icon id="icon-close" icon="tabler:x" width="20" height="20" class="hidden"></iconify-icon>
-        </button>
-      </div>
+    <!-- Right Side Buttons -->
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle"
+        class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 ring-1 ring-inset ring-white/10 text-xs">
+        <iconify-icon id="theme-icon" icon="tabler:sun" width="16" height="16"></iconify-icon>
+        <span id="theme-label">Light</span>
+      </button>
+
+      <!-- Hamburger button -->
+      <button id="menu-btn" class="lg:hidden p-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10"
+        aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open menu">
+        <iconify-icon id="icon-menu" icon="tabler:menu-2" width="20" height="20"></iconify-icon>
+        <iconify-icon id="icon-close" icon="tabler:x" width="20" height="20" class="hidden"></iconify-icon>
+      </button>
     </div>
   </div>
 
-  <!-- Drawer -->
+  <!-- Mobile Drawer -->
   <div id="mobile-drawer"
-    class="drawer hidden lg:hidden border-t border-white/10 bg-black transition-all duration-300 transform">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-      <nav class="grid gap-2 text-sm">
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#home">Home</a>
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#services">Services</a>
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#tech">Technologies</a>
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#cta-hire">Hire Me</a>
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#clients">Clients</a>
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#industries">Industries</a>
-        <a class="px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#contact">Contact</a>
-      </nav>
+    class="hidden lg:hidden fixed top-[64px] left-0 w-full bg-black border-t border-white/10 transition-all duration-300 ease-in-out transform -translate-y-5 opacity-0 z-50">
+    <div class="px-6 py-4 grid gap-2 text-sm">
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#home">Home</a>
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#services">Services</a>
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#tech">Technologies</a>
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#cta-hire">Hire Me</a>
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#clients">Clients</a>
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#industries">Industries</a>
+      <a class="block px-3 py-2 rounded-md bg-white/10 ring-1 ring-inset ring-white/10" href="#contact">Contact</a>
     </div>
   </div>
 </header>
+
 
 
   <main id="home" class="pt-16">
@@ -1376,38 +1375,55 @@
 
 
   <script>
-   const menuBtn = document.getElementById("menu-btn");
-  const mobileDrawer = document.getElementById("mobile-drawer");
-  const iconMenu = document.getElementById("icon-menu");
-  const iconClose = document.getElementById("icon-close");
+ const menuBtn = document.getElementById("menu-btn");
+const mobileDrawer = document.getElementById("mobile-drawer");
+const iconMenu = document.getElementById("icon-menu");
+const iconClose = document.getElementById("icon-close");
 
-  menuBtn.addEventListener("click", () => {
-    const isHidden = mobileDrawer.classList.contains("hidden");
+menuBtn.addEventListener("click", () => {
+  const isHidden = mobileDrawer.classList.contains("hidden");
 
-    if (isHidden) {
-      // Open menu
-      mobileDrawer.classList.remove("hidden");
-      mobileDrawer.classList.add("backdrop-blur-sm", "translate-y-0", "opacity-100");
-      iconMenu.classList.add("hidden");
-      iconClose.classList.remove("hidden");
-    } else {
-      // Close menu
+  if (isHidden) {
+    mobileDrawer.classList.remove("hidden");
+    setTimeout(() => {
+      mobileDrawer.classList.add("opacity-100", "translate-y-0");
+    }, 10);
+
+    iconMenu.classList.add("hidden");
+    iconClose.classList.remove("hidden");
+  } else {
+    mobileDrawer.classList.remove("opacity-100", "translate-y-0");
+    setTimeout(() => {
       mobileDrawer.classList.add("hidden");
-      mobileDrawer.classList.remove("backdrop-blur-sm", "translate-y-0", "opacity-100");
-      iconMenu.classList.remove("hidden");
-      iconClose.classList.add("hidden");
-    }
-  });
+    }, 300);
 
-  // Optional: sticky background on scroll (smooth black fade)
-  window.addEventListener("scroll", () => {
-    const header = document.querySelector("header");
-    if (window.scrollY > 20) {
-      header.classList.add("bg-black/90", "backdrop-blur-md");
-    } else {
-      header.classList.remove("bg-black/90", "backdrop-blur-md");
-    }
+    iconMenu.classList.remove("hidden");
+    iconClose.classList.add("hidden");
+  }
+});
+
+// Close drawer when link clicked
+document.querySelectorAll("#mobile-drawer a").forEach(link => {
+  link.addEventListener("click", () => {
+    mobileDrawer.classList.remove("opacity-100", "translate-y-0");
+    setTimeout(() => {
+      mobileDrawer.classList.add("hidden");
+    }, 300);
+    iconMenu.classList.remove("hidden");
+    iconClose.classList.add("hidden");
   });
+});
+
+// Sticky header background on scroll
+window.addEventListener("scroll", () => {
+  const header = document.querySelector("header");
+  if (window.scrollY > 20) {
+    header.classList.add("bg-black/90", "backdrop-blur-md");
+  } else {
+    header.classList.remove("bg-black/90", "backdrop-blur-md");
+  }
+});
+
 
     // Typing effect under headline
     const typingEl = document.getElementById('typing');
